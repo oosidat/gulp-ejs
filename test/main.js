@@ -25,7 +25,7 @@ describe('gulp-ejs', function () {
         contents: fs.readFileSync('test/expected/outputWithPartial.html')
     });
 
-    it('should produce correct html output when rendering a file', function (done) {
+    it('should produce correct output when rendering a file, without any renaming', function (done) {
 
         var srcFile = new gutil.File({
             path: 'test/fixtures/ok.ejs',
@@ -51,6 +51,39 @@ describe('gulp-ejs', function () {
         });
 
         stream.write(srcFile);
+        console.log('srcFile', srcFile.path);
+        String(path.extname(srcFile.path)).should.equal('.ejs');
+
+      stream.end();
+    });
+
+    it('should produce correct html output when rendering a file, with extension renaming', function (done) {
+
+        var srcFile = new gutil.File({
+            path: 'test/fixtures/ok.ejs',
+            cwd: 'test/',
+            base: 'test/fixtures',
+            contents: fs.readFileSync('test/fixtures/ok.ejs')
+        });
+
+        var stream = ejs({ title: 'gulp-ejs' }, { ext: '.html'});
+
+        stream.on('error', function (err) {
+            should.exist(err);
+            done(err);
+        });
+
+        stream.on('data', function (newFile) {
+
+            should.exist(newFile);
+            should.exist(newFile.contents);
+
+            String(newFile.contents).should.equal(String(expectedFile.contents));
+            done();
+        });
+
+        stream.write(srcFile);
+        console.log('srcFile', srcFile.path);
         String(path.extname(srcFile.path)).should.equal('.html');
 
       stream.end();
@@ -135,12 +168,12 @@ describe('gulp-ejs', function () {
 
     var file1 = new gutil.File({
       path: 'foo',
-      contents: new Buffer('<%- filename -%>.html')
+      contents: new Buffer('<%- filename -%>')
     });
 
     var file2 = new gutil.File({
-      path: 'bar',
-      contents: new Buffer('<%- filename -%>.html')
+      path: 'bar.html',
+      contents: new Buffer('<%- filename -%>')
     });
 
     var stream = ejs();
@@ -156,7 +189,7 @@ describe('gulp-ejs', function () {
     stream.end();
   })
 
-  it('should support passing data with gulp-data', function (done) {
+  it('should support passing data with gulp-data without extension renaming', function (done) {
       var srcFile = new gutil.File({ path: 'test/fixtures/ok.ejs',
                                    cwd: 'test/',
                                    base: 'test/fixtures',
@@ -167,6 +200,38 @@ describe('gulp-ejs', function () {
       srcFile.data = { title: 'gulp-ejs' };
 
       var stream = ejs();
+
+      stream.on('error', function (err) {
+          should.exist(err);
+          done(err);
+      });
+
+      stream.on('data', function (newFile) {
+
+          should.exist(newFile);
+          should.exist(newFile.contents);
+
+          String(newFile.contents).should.equal(String(expectedFile.contents));
+          done();
+      });
+
+      stream.write(srcFile);
+      String(path.extname(srcFile.path)).should.equal('.ejs');
+
+      stream.end();
+  });
+
+  it('should support passing data with gulp-data with extension renaming', function (done) {
+      var srcFile = new gutil.File({ path: 'test/fixtures/ok.ejs',
+                                   cwd: 'test/',
+                                   base: 'test/fixtures',
+                                   contents: fs.readFileSync('test/fixtures/ok.ejs')
+      });
+
+      // simulate gulp-data plugin
+      srcFile.data = { title: 'gulp-ejs' };
+
+      var stream = ejs({}, { ext: '.html' });
 
       stream.on('error', function (err) {
           should.exist(err);

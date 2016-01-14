@@ -1,23 +1,23 @@
 {
   "name": "gulp-ejs",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A plugin for Gulp that parses ejs template files",
   "keywords": [
     "gulpplugin",
     "gulp",
     "ejs"
   ],
-  "homepage": "https://github.com/rogeriopvl/gulp-ejs",
-  "bugs": "https://github.com/rogeriopvl/gulp-ejs/issues",
+  "homepage": "https://github.com/oosidat/gulp-ejs",
+  "bugs": "https://github.com/oosidat/gulp-ejs/issues",
   "author": {
-    "name": "Rogério Vicente",
+    "name": "Osama Sidat",
     "email": "",
-    "url": "https://github.com/rogeriopvl"
+    "url": "https://github.com/oosidat"
   },
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rogeriopvl/gulp-ejs.git"
+    "url": "git://github.com/oosidat/gulp-ejs.git"
   },
   "scripts": {
     "test": "mocha"
@@ -38,7 +38,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/rogeriopvl/gulp-ejs/blob/master/LICENSE"
+      "url": "https://github.com/oosidat/gulp-ejs/blob/master/LICENSE"
     }
   ]
 }

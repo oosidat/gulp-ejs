@@ -1,4 +1,6 @@
-# gulp-ejs [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
+# gulp-ejs
+
+*This is a fork of [Rogério Vicente's gulp-ejs](https://github.com/rogeriopvl/gulp-ejs) plugin, modified to have different default behaviour regarding file extensions.*
 
 > ejs plugin for [gulp](https://github.com/wearefractal/gulp)
 
@@ -52,26 +54,43 @@ For more info on `ejs` options, check the [project's documentation](https://gith
 
 #### settings
 Type: `hash`
-Default: `{ext: '.html'}`
+Default: `{}`
 
 A hash object to configure the plugin.
 
 ##### settings.ext
 Type: `String`
-Default: `.html`
+Default: `undefined`
 
-Defines the default file extension that will be appended to the filename.
+Defines the file extension that will be appended to the filename.
+
+###### Example
+
+**Not specifying extension:**
+
+```javascript
+var ejs = require("gulp-ejs");
+
+gulp.src("./templates/hello.myrandomextension")
+	.pipe(ejs())
+	.pipe(gulp.dest("./dist"));
+```
+
+will produce file: `dist/hello.myrandomextension`
+
+**Specifying extension:**
+
+```javascript
+var ejs = require("gulp-ejs");
+
+gulp.src("./templates/hello.myrandomextension")
+	.pipe(ejs({}, { ext: '.html'}))
+	.pipe(gulp.dest("./dist"));
+```
+
+will produce file: `dist/hello.html`
 
 
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
-
-[npm-url]: https://npmjs.org/package/gulp-ejs
-[npm-image]: https://badge.fury.io/js/gulp-ejs.png
-
-[travis-url]: http://travis-ci.org/rogeriopvl/gulp-ejs
-[travis-image]: https://secure.travis-ci.org/rogeriopvl/gulp-ejs.png?branch=master
-
-[depstat-url]: https://david-dm.org/rogeriopvl/gulp-ejs
-[depstat-image]: https://david-dm.org/rogeriopvl/gulp-ejs.png
