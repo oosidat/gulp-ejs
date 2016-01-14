@@ -9,7 +9,7 @@
 First, install `gulp-ejs` as a development dependency:
 
 ```shell
-npm install --save-dev gulp-ejs
+npm install --save-dev git+https://github.com/oosidat/gulp-ejs.git
 ```
 
 Then, add it to your `gulpfile.js`:
